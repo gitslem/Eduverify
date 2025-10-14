@@ -57,7 +57,7 @@ Ensure you have the following installed:
 
 ###  Clone the Repository
 ```bash
-git clone https://github.com/<your-username>/eduverify.git
+git clone https://github.com/gitslem/eduverify.git
 cd eduverify
 
  Install Dependencies
