@@ -1,115 +1,143 @@
-# EduVerify – Blockchain-Based Certificate Verification System
+ EduVerify – Blockchain-Based Certificate Verification System
 
-EduVerify is a decentralized application (dApp) that enables educational institutions to issue tamper-proof academic certificates and allows employers or other verifiers to validate them with trustless blockchain verification.
+ Project Overview
+EduVerify is a decentralized application (dApp) that enables educational institutions to issue tamper-proof academic certificates and allows employers or verifiers to validate them using trustless blockchain verification.  
 
-
-
-## Overview
-EduVerify leverages **Ethereum smart contracts** and **decentralized storage** to create a secure, transparent, and immutable record of academic certificates.  
-The platform eliminates credential fraud and simplifies verification for employers, students, and institutions.
+It provides a secure, transparent, and immutable way to combat credential fraud while simplifying verification for employers, students, and institutions.  
 
 
-## Features
+ Features
 
-### Core Functionalities
-- **Certificate Issuance**  
-  Institutions can issue certificates by uploading their details and associating them with a student's wallet address.
-  
-- **Certificate Verification**  
-  Anyone can verify the authenticity of a certificate by entering its ID or hash.
+ Core Functionalities
+- Certificate Issuance – Institutions upload certificate details and associate them with a student’s wallet address.  
+- Certificate Verification – Anyone can validate authenticity by entering a certificate ID or hash.  
+- Certificate Revocation (optional) – Issuers can revoke certificates if invalid or issued in error.  
 
-- **Certificate Revocation** *(Optional Feature)*  
-  Issuers can revoke a certificate if it’s found invalid or issued in error.
+ Security & Transparency
+- Access control with OpenZeppelin’s Ownable.  
+- Event logs (`CertificateIssued`, `CertificateVerified`, `CertificateRevoked`) for full auditability.  
+- SHA-256 hashing for file integrity stored on-chain.  
 
-### Security & Transparency
-- Access control via **OpenZeppelin’s Ownable**.
-- Event logs (`CertificateIssued`, `CertificateVerified`, `CertificateRevoked`) for auditability.
-- File integrity ensured using **SHA-256 hashes** stored on-chain.
+ Decentralized Storage
+- Certificate PDFs stored off-chain via IPFS.  
+- Hashes of files stored in the smart contract for verification.  
+- Backend handles file hashing + blockchain interaction.  
 
-### Decentralized Storage
-- Certificate PDFs are stored off-chain (e.g., **IPFS**), with cryptographic hashes stored in the smart contract.
-- Backend handles file hashing before blockchain storage.
+ Frontend
+- Built with React + Tailwind CSS.  
+- Wallet connection and blockchain interaction using Web3.js.  
+- Responsive, user-friendly UI.  
 
-### Frontend
-- Built with **React** and styled with **Tailwind CSS**.
-- Integrated with **Web3.js** for wallet connection and blockchain interaction.
-- Fully responsive and production-ready UI.
 
-## Tech Stack
 
-| Layer              | Technology Used |
-|--------------------|-----------------|
-| Smart Contracts    | Solidity, OpenZeppelin |
-| Blockchain Access  | Web3.js |
-| Frontend           | React, Tailwind CSS |
-| Backend            | Node.js, Express |
-| Decentralized Storage | IPFS / Off-chain server |
-| Version Control    | Git, GitHub |
+ Tech Stack
 
-## Getting Started
+| Layer                | Technology Used |
+|----------------------|-----------------|
+| Smart Contracts      | Solidity, OpenZeppelin |
+| Blockchain Access    | Web3.js |
+| Frontend             | React, Tailwind CSS |
+| Backend              | Node.js, Express |
+| Decentralized Storage| IPFS / Off-chain server |
+| Development Tools    | Truffle, Ganache, Infura |
+| Version Control      | Git, GitHub |
 
-### Prerequisites
-Ensure you have the following installed:
-- [Node.js](https://nodejs.org/) (v16+)
-- [npm](https://www.npmjs.com/)
-- [MetaMask](https://metamask.io/)
-- [Ganache](https://trufflesuite.com/ganache/) or an Ethereum testnet account
+---
 
-###  Clone the Repository
+Getting Started
+
+ Prerequisites
+Ensure you have the following installed:  
+- [Node.js](https://nodejs.org/) (v16+)  
+- [npm](https://www.npmjs.com/)  
+- [MetaMask](https://metamask.io/)  
+- [Ganache](https://trufflesuite.com/ganache/) or an Ethereum testnet account (e.g., Goerli via Infura)  
+
+---
+
+ Setup Steps (Table)
+
+| Step | Description |
+|------|-------------|
+| 1 | Clone the repository |
+| 2 | Install backend dependencies |
+| 3 | Install frontend dependencies |
+| 4 | Deploy smart contracts (local or testnet) |
+| 5 | Start backend server |
+| 6 | Start frontend UI |
+
+---
+
+ Commands
+
+1. Clone the Repository
 ```bash
 git clone https://github.com/gitslem/eduverify.git
 cd eduverify
 
- Install Dependencies
+2. Install Dependencies
 
-# Install backend dependencies
+ Backend dependencies
 cd backend
 npm install
 
-# Install frontend dependencies
+ Frontend dependencies
 cd ../frontend
 npm install
 
- Smart Contract Deployment
+3. Deploy Smart Contracts
 
-# From backend or root folder
+ From project root or backend folder
 truffle migrate --network development
 
-Or deploy to a testnet (e.g., Goerli) with Infura.
+ Or deploy to a testnet (e.g., Goerli) using Infura
+truffle migrate --network goerli
 
- Start Backend
+4. Start Backend
 
 cd backend
 npm start
 
- Start Frontend
+5. Start Frontend
 
 cd frontend
 npm run dev
 
-Project Structure
 
-EduVerify/
-│
-├── backend/         # Node.js API & IPFS integration
-├── contracts/       # Solidity smart contracts
-├── frontend/        # React UI with Web3.js
-├── migrations/      # Truffle migration scripts
-└── README.md
+ Project Structure
+
+Path	Description
+backend/	Node.js API with IPFS integration
+contracts/	Solidity smart contracts
+frontend/	React UI (Web3.js + Tailwind CSS)
+migrations/	Truffle migration scripts
+README.md	Documentation
+
 
 
  Team Members
-	•	Shashwat – Project Manager
-	•	Anslem – Team Lead & Coder (Solidity + React)
-	•	Soham – Developer & Knowledge Management Lead (Backend + Documentation)
+
+Name	Role
+Anslem	Project Manager
+Shashwat Team Lead & Coder (Solidity + React)
+Soham	Backend Developer & Knowledge Management Lead
+
+
 
  Goals Achieved
-	•	Secure blockchain-based certificate verification.
-	•	User-friendly full-stack dApp.
-	•	Prevents credential fraud and enables instant validation.
-	•	Ready for deployment and real-world testing.
+	•	 Secure blockchain-based certificate verification
+	•	 User-friendly full-stack dApp
+	•	 Prevention of credential fraud + instant validation
+	•	 Ready for deployment and real-world testing
+
+
+
+References
+	•	Ethereum Documentation
+	•	Truffle Suite
+	•	IPFS Docs
+	•	OpenZeppelin Contracts
 
  License
 
-This project is licensed under the MIT License.
-
+MIT License © 2025
