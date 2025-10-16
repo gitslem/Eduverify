@@ -1,6 +1,13 @@
  EduVerify – Blockchain-Based Certificate Verification System
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Status](https://img.shields.io/badge/status-active-success)
+![Roadmap](https://img.shields.io/badge/next%20release-v2.0-lightgrey)
+
+> The first stable release of EduVerify.  
+> Stay tuned for **v2.0**
 
  Project Overview
+ 
 EduVerify is a decentralized application (dApp) that enables educational institutions to issue tamper-proof academic certificates and allows employers or verifiers to validate them using trustless blockchain verification.  
 
 It provides a secure, transparent, and immutable way to combat credential fraud while simplifying verification for employers, students, and institutions.  
