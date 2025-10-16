@@ -4,10 +4,6 @@
 ![Status](https://img.shields.io/badge/status-active-success)
 ![Roadmap](https://img.shields.io/badge/next%20release-v2.0-lightgrey)
 
-https://drive.google.com/file/d/1CSzSkzAtHfSDlwQAQhviyxzYNR39Xk1f/view?usp=sharing
-https://drive.google.com/file/d/1yZOzAkBTNNj55FFPSA3MASUh-f2bwKTH/view?usp=sharing
- ![Screenshot](path/to/[image.png](https://drive.google.com/file/d/1yZOzAkBTNNj55FFPSA3MASUh-f2bwKTH/view?usp=sharing))
-
 
 EduVerify is a full-stack decentralized application that allows institutions to issue **tamper-proof academic certificates** and enables employers or other verifiers to **check authenticity directly on the blockchain**.
 
