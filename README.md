@@ -1,126 +1,144 @@
- EduVerify – Blockchain-Based Certificate Verification System
+# EduVerify – Blockchain Certificate Verification dApp
+
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![Status](https://img.shields.io/badge/status-active-success)
 ![Roadmap](https://img.shields.io/badge/next%20release-v2.0-lightgrey)
 
-> The first stable release of EduVerify.  
-> Stay tuned for **v2.0**
 
- Project Overview
- 
-EduVerify is a decentralized application (dApp) that enables educational institutions to issue tamper-proof academic certificates and allows employers or verifiers to validate them using trustless blockchain verification.  
+EduVerify is a full-stack decentralized application that allows institutions to issue **tamper-proof academic certificates** and enables employers or other verifiers to **check authenticity directly on the blockchain**.
 
-It provides a secure, transparent, and immutable way to combat credential fraud while simplifying verification for employers, students, and institutions.  
-
-
- Features
-
- Core Functionalities
-- Certificate Issuance – Institutions upload certificate details and associate them with a student’s wallet address.  
-- Certificate Verification – Anyone can validate authenticity by entering a certificate ID or hash.  
-- Certificate Revocation (optional) – Issuers can revoke certificates if invalid or issued in error.  
-
- Security & Transparency
-- Access control with OpenZeppelin’s Ownable.  
-- Event logs (`CertificateIssued`, `CertificateVerified`, `CertificateRevoked`) for full auditability.  
-- SHA-256 hashing for file integrity stored on-chain.  
-
- Decentralized Storage
-- Certificate PDFs stored off-chain via IPFS.  
-- Hashes of files stored in the smart contract for verification.  
-- Backend handles file hashing + blockchain interaction.  
-
- Frontend
-- Built with React + Tailwind CSS.  
-- Wallet connection and blockchain interaction using Web3.js.  
-- Responsive, user-friendly UI.  
+This repo includes:
+- **Smart Contracts** (Solidity, Hardhat)
+- **Backend API** (Node.js + Express + Ethers.js)
+- **Frontend UI** (React)
 
 
+## 📌 Features
+- Institutions can issue certificates (with hash of PDF).
+- Students can be registered and linked to certs.
+- Third parties can verify authenticity via blockchain.
+- Certificates can expire or be revoked.
+- Dev-only seed to quickly approve a test institution and student.
 
- Tech Stack
 
-| Layer                | Technology Used |
-|----------------------|-----------------|
-| Smart Contracts      | Solidity, OpenZeppelin |
-| Blockchain Access    | Web3.js |
-| Frontend             | React, Tailwind CSS |
-| Backend              | Node.js, Express |
-| Decentralized Storage| IPFS / Off-chain server |
-| Development Tools    | Truffle, Ganache, Infura |
-| Version Control      | Git, GitHub |
+## 🛠️ Prerequisites
+| Tool | Version (recommended) |
+|------|------------------------|
+| Node.js | v20 (use `nvm use 20`) |
+| npm | v10+ |
+| Hardhat | installed locally via `npx hardhat` |
+| Git | latest |
 
----
 
-Getting Started
+## 🚀 Getting Started (Local Setup)
 
- Prerequisites
-Ensure you have the following installed:  
-- [Node.js](https://nodejs.org/) (v16+)  
-- [npm](https://www.npmjs.com/)  
-- [MetaMask](https://metamask.io/)  
-- [Ganache](https://trufflesuite.com/ganache/) or an Ethereum testnet account (e.g., Goerli via Infura)  
-
----
-
- Setup Steps (Table)
-
-| Step | Description |
-|------|-------------|
-| 1 | Clone the repository |
-| 2 | Install backend dependencies |
-| 3 | Install frontend dependencies |
-| 4 | Deploy smart contracts (local or testnet) |
-| 5 | Start backend server |
-| 6 | Start frontend UI |
-
----
-
- Commands
-
-1. Clone the Repository
+### 1. Clone Repository
 ```bash
-git clone https://github.com/gitslem/eduverify.git
-cd eduverify
+git clone https://github.com/<your-username>/<repo-name>.git
+cd <repo-name>
+
 
 2. Install Dependencies
 
- Backend dependencies
+Component	Commands
+Root (for Hardhat)	npm install
+Backend	cd backend && npm install && cd ..
+Frontend	cd frontend && npm install && cd ..
+
+
+3. Start Local Blockchain (Hardhat Node)
+
+npx hardhat node
+
+This runs a local Ethereum network at http://127.0.0.1:8545 and gives you test accounts.
+
+
+4. Deploy the Contract
+
+In a second terminal:
+
+npx hardhat compile
+npx hardhat run scripts/deploy.js --network localhost
+
+Copy the deployed contract address from the output — you’ll need it in the backend.
+
+
+5. Run Backend API
+
+Edit backend/index.js and update contractAddress with your deployed contract address if different.
+
+Then run:
+
 cd backend
-npm install
+node index.js
 
- Frontend dependencies
-cd ../frontend
-npm install
+Backend runs on http://localhost:3008
 
-3. Deploy Smart Contracts
 
- From project root or backend folder
-truffle migrate --network development
-
- Or deploy to a testnet (e.g., Goerli) using Infura
-truffle migrate --network goerli
-
-4. Start Backend
-
-cd backend
-npm start
-
-5. Start Frontend
+6. Run Frontend
 
 cd frontend
-npm run dev
+npm start   # or npm run dev if using Vite
+
+Frontend runs on http://localhost:3000
 
 
- Project Structure
+🧪 Testing the App
 
-Path	Description
-backend/	Node.js API with IPFS integration
-contracts/	Solidity smart contracts
-frontend/	React UI (Web3.js + Tailwind CSS)
-migrations/	Truffle migration scripts
-README.md	Documentation
+1. Seed test accounts (approve institution + register student)
+
+curl -X POST http://localhost:3008/seed
+
+2. Upload a PDF → Get Hash
+
+curl -X POST http://localhost:3008/upload \
+  -F "pdf=@./cert.pdf"
+
+3. Issue a Certificate
+
+curl -X POST http://localhost:3008/issue \
+  -H "Content-Type: application/json" \
+  -d '{"student":"0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC","ipfsHash":"<HASH>","expiresAt":1893456000}'
+
+4. List Certificates for Student
+
+curl http://localhost:3008/certificates/0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC
+
+5. Verify a Certificate
+
+curl http://localhost:3008/verify/0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC/0/<HASH>
+
+6. Revoke a Certificate
+
+curl -X POST http://localhost:3008/revoke \
+  -H "Content-Type: application/json" \
+  -d '{"student":"0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC","index":0}'
 
 
+
+📂 Project Structure
+
+.
+├── contracts/         # Solidity contracts
+├── scripts/           # Hardhat deployment scripts
+├── artifacts/         # Compiled contract ABIs
+├── backend/           # Express API server
+│   └── index.js
+├── frontend/          # React frontend
+└── README.md
+
+
+
+🔒 Notes
+	•	Use Hardhat’s local accounts for dev.
+	•	Update backend/index.js with the correct contract address each time you redeploy.
+	•	Private keys in Hardhat are for testing only; never use mainnet keys.
+
+
+📜 License
+
+MIT License.
+Feel free to fork and extend for your own projects.
 
  Team Members
 
@@ -129,22 +147,3 @@ Anslem	Project Manager
 Shashwat Team Lead & Coder (Solidity + React)
 Soham	Backend Developer & Knowledge Management Lead
 
-
-
- Goals Achieved
-	•	 Secure blockchain-based certificate verification
-	•	 User-friendly full-stack dApp
-	•	 Prevention of credential fraud + instant validation
-	•	 Ready for deployment and real-world testing
-
-
-
-References
-	•	Ethereum Documentation
-	•	Truffle Suite
-	•	IPFS Docs
-	•	OpenZeppelin Contracts
-
- License
-
-MIT License © 2025
